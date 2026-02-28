@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <main>
-        <h2>My App</h2>
+        <h2></h2>
       </main>
     </>
   );
