@@ -1,12 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
-export default function AuthModal({ isOpen, onClose }) {
-  const [isSignUp, setIsSignUp] = useState(false);
+export default function AuthModal({ isOpen, onClose, defaultMode }) {
+  const [authMode, setAuthMode] = useState(defaultMode);
 
+  useEffect(() => {
+    if (isOpen) {
+        setAuthMode(defaultMode);
+    }
+  }, [isOpen, defaultMode]);
+
+//   Prevent rendering when closed
   if (!isOpen) return null;
 
   return (
@@ -16,13 +23,14 @@ export default function AuthModal({ isOpen, onClose }) {
                 onClick={onClose}
                 className="absolute top-2 right-3 text-gray-500"
             >
-            ✕
+                ✕
             </button>
 
-            {isSignUp ? (
-                <SignUp switchToSignIn={() => setIsSignUp(false)} />
-                ) : (
-                <SignIn switchToSignUp={() => setIsSignUp(true)} />
+            {/* Switch Based on Mode */}
+            {authMode === "signin" ? (
+                <SignIn switchToSignUp={() => setAuthMode("signup")} />
+            ) : (
+                <SignUp switchToSignIn={() => setAuthMode("signin")} />
             )}
         </div>
     </div>

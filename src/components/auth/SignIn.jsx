@@ -7,29 +7,29 @@ export default function SignIn({ switchToSignUp }) {
         <p className="text-gray-500 text-md">Sign in to your account to continue shopping</p>
         <div className="mt-4">
             <input
-            type="email"
-            placeholder="Email"
-            className="w-full border p-2 rounded mb-3"
+                type="email"
+                placeholder="Email"
+                className="w-full border p-2 rounded mb-3"
             />
 
             <input
-            type="password"
-            placeholder="Password"
-            className="w-full border p-2 rounded mb-3"
+                type="password"
+                placeholder="Password"
+                className="w-full border p-2 rounded mb-3"
             />
         </div>
 
-        <button className="w-full bg-black text-white py-2 rounded">
-            Login
+        <button className="w-full bg-blue-700 text-white py-2 rounded">
+            Sign In
         </button>
 
         <p className="text-sm mt-4 text-center">
             Don't have an account?{" "}
             <span
-            onClick={switchToSignUp}
-            className="text-blue-600 cursor-pointer"
+                onClick={switchToSignUp}
+                className="text-blue-600 cursor-pointer"
             >
-            Sign Up
+                Sign Up
             </span>
         </p>
     </div>
