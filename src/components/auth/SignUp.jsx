@@ -2,18 +2,16 @@
 
 import { useState } from "react";
 
-export default function SignUp({ switchToSignIn }) {
+export default function SignUp({ switchToSignIn, onLogin }) {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // NEW STATES
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // SIGNUP FUNCTION
   const handleSignup = async () => {
 
     if (password !== confirmPassword) {
@@ -32,15 +30,34 @@ export default function SignUp({ switchToSignIn }) {
     const data = await res.json();
 
     if (res.ok) {
+
       alert("Account created successfully");
-      switchToSignIn(); // go to login
+
+      onLogin({
+        name: name,
+        email: email
+      });
+
     } else {
-      alert(data.message);
+
+      if (data.message === "User already exists") {
+
+        // Auto login existing user
+        onLogin({
+          name: name,
+          email: email
+        });
+
+      } else {
+        alert(data.message);
+      }
+
     }
   };
 
   return (
     <div>
+
       <h2 className="text-lg font-semibold mb-4">Sign Up</h2>
       <p className="text-gray-500 text-md">
         Join us and start shopping today
@@ -48,80 +65,85 @@ export default function SignUp({ switchToSignIn }) {
 
       <div className="mt-4">
 
-        {/* Name */}
+        {/* NAME */}
         <div className="relative mb-3">
+
           <i className="fa-solid fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
 
           <input
             type="text"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e)=>setName(e.target.value)}
             className="w-full border border-gray-600 p-2 pl-10 rounded focus:outline-none focus:ring-2 focus:ring-blue-700"
           />
+
         </div>
 
-        {/* Email */}
+        {/* EMAIL */}
         <div className="relative mb-3">
+
           <i className="fa-solid fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
 
           <input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e)=>setEmail(e.target.value)}
             className="w-full border border-gray-600 p-2 pl-10 rounded focus:outline-none focus:ring-2 focus:ring-blue-700"
           />
+
         </div>
 
-        {/* Password */}
+        {/* PASSWORD */}
         <div className="relative mb-3">
+
           <i className="fa-solid fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
 
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e)=>setPassword(e.target.value)}
             className="w-full border border-gray-600 p-2 pl-10 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-blue-700"
           />
 
           <i
-            onClick={() => setShowPassword(!showPassword)}
+            onClick={()=>setShowPassword(!showPassword)}
             className={`fa-solid ${
               showPassword ? "fa-eye-slash" : "fa-eye"
             } absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 cursor-pointer`}
           ></i>
+
         </div>
 
-        {/* Confirm Password */}
+        {/* CONFIRM PASSWORD */}
         <div className="relative mb-3">
+
           <i className="fa-solid fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
 
           <input
             type={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm your password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e)=>setConfirmPassword(e.target.value)}
             className="w-full border border-gray-600 p-2 pl-10 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-blue-700"
           />
 
           <i
-            onClick={() =>
-              setShowConfirmPassword(!showConfirmPassword)
-            }
+            onClick={()=>setShowConfirmPassword(!showConfirmPassword)}
             className={`fa-solid ${
               showConfirmPassword ? "fa-eye-slash" : "fa-eye"
             } absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 cursor-pointer`}
           ></i>
+
         </div>
 
       </div>
 
-      {/* BUTTON */}
       <button
         onClick={handleSignup}
-        className="w-full bg-blue-700 text-white py-2 rounded"
+        className="w-full bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition"
       >
         Create Account
       </button>
