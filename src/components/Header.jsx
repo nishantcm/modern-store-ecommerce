@@ -1,38 +1,62 @@
 "use client"
 
+import { useState } from "react";
 import SearchBar from "./SearchBar";
+import ProfileMenu from "./ProfileMenu";
 
-export default function Header( { onOpenSignIn, onOpenSignUp }) {
+export default function Header({ onOpenSignIn, onOpenSignUp }) {
+
+  const [user, setUser] = useState(null);
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
   return (
     <header>
-      <div className="grid grid-cols-12 gap-2 justify-center bg-white-500 text-white p-6 rounded-lg">
-        <div className="col-span-3 gap-2 flex justify-center">
-          <div className="flex items-center bg-white-900 hover:bg-gray-100 text-gray-600 rounded-lg p-2 transition duration-300">
-            <i className="fa-solid fa-bars fa-xl text-black"></i>
-          </div>
-          <div className="flex items-end">
-            <h1 className="text-black text-[28px] font-medium pr-4">Modern Store</h1> 
-          </div>
+      <div className="grid grid-cols-12 gap-2 bg-white p-6 rounded-lg">
+
+        {/* Logo */}
+        <div className="col-span-3 flex items-center gap-2">
+          <i className="fa-solid fa-bars fa-xl text-black"></i>
+          <h1 className="text-black text-[28px] font-medium">
+            Modern Store
+          </h1>
         </div>
-        <div className="col-span-6 flex">
-          <div className="w-150">
-            <SearchBar />
-          </div>
+
+        {/* Search */}
+        <div className="col-span-6">
+          <SearchBar />
         </div>
-        <div className="col-span-3 flex justify-center gap-2">
-          <div className="bg-white-900 hover:bg-gray-100 text-gray-600 rounded-lg p-2 transition duration-300 flex items-center">
-            <i className="fa-solid fa-heart fa-xl"></i>
-          </div>
-          <div className="bg-white-900 hover:bg-gray-100 text-gray-600 rounded-lg p-2 transition duration-300 flex items-center">
-            <i className="fa-solid fa-cart-shopping fa-xl"></i>
-          </div>
-          <div>
-            <button onClick={onOpenSignIn} className="bg-white-900 hover:bg-gray-100 text-gray-600 rounded-lg p-2 px-3 transition duration-300 text-[14px] font-medium">Sign In</button>
-          </div>
-          <div>
-            <button onClick={onOpenSignUp} className="bg-blue-800 hover:bg-blue-700 transiton duration-200 rounded-lg p-2 px-3 text-[14px] font-medium">Sign Up</button>
-          </div>
+
+        {/* Right Section */}
+        <div className="col-span-3 flex items-center justify-center gap-3">
+
+          <i className="fa-solid fa-heart fa-xl text-gray-600"></i>
+          <i className="fa-solid fa-cart-shopping fa-xl text-gray-600"></i>
+
+          {user ? (
+            <ProfileMenu user={user} onLogout={handleLogout} />
+          ) : (
+            <>
+              <button
+                onClick={() => onOpenSignIn(setUser)}
+                className="hover:bg-gray-100 rounded-lg p-2 px-3"
+              >
+                Sign In
+              </button>
+
+              <button
+                onClick={() => onOpenSignUp(setUser)}
+                className="bg-blue-800 hover:bg-blue-700 text-white rounded-lg p-2 px-3"
+              >
+                Sign Up
+              </button>
+            </>
+          )}
+
         </div>
+
       </div>
     </header>
   );
