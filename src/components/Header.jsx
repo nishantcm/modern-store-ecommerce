@@ -1,14 +1,44 @@
-"use client"
+"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import ProfileMenu from "./ProfileMenu";
+import AuthModal from "./auth/AuthModal";
 
-export default function Header({ onOpenSignIn, onOpenSignUp }) {
+export default function Header() {
 
   const [user, setUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mode, setMode] = useState("signin");
 
+  // Load user when page loads
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  const openSignIn = () => {
+    setMode("signin");
+    setIsModalOpen(true);
+  };
+
+  const openSignUp = () => {
+    setMode("signup");
+    setIsModalOpen(true);
+  };
+
+  // LOGIN
+  const handleLogin = (userData) => {
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
+    setIsModalOpen(false);
+  };
+
+  // LOGOUT
   const handleLogout = () => {
+    localStorage.removeItem("user");
     setUser(null);
   };
 
@@ -40,14 +70,14 @@ export default function Header({ onOpenSignIn, onOpenSignUp }) {
           ) : (
             <>
               <button
-                onClick={() => onOpenSignIn(setUser)}
+                onClick={openSignIn}
                 className="hover:bg-gray-100 rounded-lg p-2 px-3"
               >
                 Sign In
               </button>
 
               <button
-                onClick={() => onOpenSignUp(setUser)}
+                onClick={openSignUp}
                 className="bg-blue-800 hover:bg-blue-700 text-white rounded-lg p-2 px-3"
               >
                 Sign Up
@@ -56,8 +86,14 @@ export default function Header({ onOpenSignIn, onOpenSignUp }) {
           )}
 
         </div>
-
       </div>
+
+      <AuthModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        defaultMode={mode}
+        onLogin={handleLogin}
+      />
     </header>
   );
 }
