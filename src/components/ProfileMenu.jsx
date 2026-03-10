@@ -7,6 +7,11 @@ export default function ProfileMenu({ user, onLogout }) {
 
   const [open, setOpen] = useState(false);
 
+  const handleLogout = () => {
+    onLogout();
+    setOpen(false);
+  };
+
   return (
     <div className="relative">
 
@@ -30,7 +35,7 @@ export default function ProfileMenu({ user, onLogout }) {
           </div>
 
           <button
-            onClick={onLogout}
+            onClick={handleLogout}
             className="flex items-center gap-2 text-red-500 hover:text-red-600"
           >
             <FaSignOutAlt />

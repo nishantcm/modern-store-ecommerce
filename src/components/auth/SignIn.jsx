@@ -25,10 +25,14 @@ export default function SignIn({ switchToSignUp, onLogin }) {
 
       alert("Login successful");
 
-      onLogin({
+      const userData = {
         name: data.user?.name || "User",
         email: data.user?.email || email
-      });
+      };
+
+      sessionStorage.setItem("user", JSON.stringify(userData));
+
+      onLogin(userData);
 
     } else {
       alert(data.message);

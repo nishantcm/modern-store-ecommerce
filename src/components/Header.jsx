@@ -8,12 +8,16 @@ import AuthModal from "./auth/AuthModal";
 export default function Header() {
 
   const [user, setUser] = useState(null);
+  const [mounted, setMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mode, setMode] = useState("signin");
 
   // Load user when page loads
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
+    setMounted(true);
+    
+    const savedUser = sessionStorage.getItem("user");
+
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
@@ -31,14 +35,14 @@ export default function Header() {
 
   // LOGIN
   const handleLogin = (userData) => {
+    sessionStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
     setIsModalOpen(false);
   };
 
   // LOGOUT
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     setUser(null);
   };
 
