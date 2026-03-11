@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaUserCircle} from "react-icons/fa";
+import { PiSignOutBold } from "react-icons/pi";
 
 export default function ProfileMenu({ user, onLogout }) {
 
@@ -23,7 +24,7 @@ export default function ProfileMenu({ user, onLogout }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-3 w-64 bg-white shadow-lg rounded-xl border p-4">
+        <div className="absolute right-0 mt-2 w-50 bg-zinc-100 shadow-lg rounded-md shadow-md outline outline-black/5 dark:bg-gray-800 p-2">
 
           <div className="border-b pb-3 mb-3">
             <p className="font-semibold text-gray-800">
@@ -36,9 +37,9 @@ export default function ProfileMenu({ user, onLogout }) {
 
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-red-500 hover:text-red-600"
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-600"
           >
-            <FaSignOutAlt />
+            <PiSignOutBold size={25} />
             Sign Out
           </button>
 
