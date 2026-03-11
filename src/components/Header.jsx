@@ -48,10 +48,10 @@ export default function Header() {
 
   return (
     <header>
-      <div className="grid grid-cols-12 gap-2 bg-white p-6 rounded-lg">
+      <div className="grid grid-cols-12 gap-2 bg-[#faf9fd] p-6 shadow-md outline outline-black/5 dark:bg-gray-800 py-3">
 
         {/* Logo */}
-        <div className="col-span-3 flex items-center gap-2">
+        <div className="col-span-3 flex items-center justify-center gap-2">
           <i className="fa-solid fa-bars fa-xl text-black"></i>
           <h1 className="text-black text-[28px] font-medium">
             Modern Store
