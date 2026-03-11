@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import ProfileMenu from "./ProfileMenu";
 import AuthModal from "./auth/AuthModal";
+import Sidebar from "./Sidebar";
 
 export default function Header() {
 
@@ -11,6 +12,9 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mode, setMode] = useState("signin");
+
+  const [sidebarOpen, setSidebarOpen] = useState(false); // sidebar state
+  const [active, setActive] = useState("All");
 
   // Load user when page loads
   useEffect(() => {
@@ -47,57 +51,76 @@ export default function Header() {
   };
 
   return (
-    <header>
-      <div className="grid grid-cols-12 gap-2 bg-[#faf9fd] p-6 shadow-md outline outline-black/5 dark:bg-gray-800 py-3">
+    <>
+      <header>
+        <div className="grid grid-cols-12 gap-2 bg-[#faf9fd] p-6 shadow-md outline outline-black/5 dark:bg-gray-800 py-3">
 
-        {/* Logo */}
-        <div className="col-span-3 flex items-center justify-center gap-2">
-          <i className="fa-solid fa-bars fa-xl text-black"></i>
-          <h1 className="text-black text-[28px] font-medium">
-            Modern Store
-          </h1>
+          {/* Logo */}
+          <div className="col-span-3 flex items-center justify-center gap-3">
+
+            {/* Toggle Sidebar */}
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-200 hover:rounded-lg"
+            >
+              <i className="fa-solid fa-bars fa-lg text-black"></i>
+            </button>
+
+            <h1 className="text-black text-[24px] font-medium">
+              Modern Store
+            </h1>
+          </div>
+
+          {/* Search */}
+          <div className="col-span-6">
+            <SearchBar />
+          </div>
+
+          {/* Right Section */}
+          <div className="col-span-3 flex items-center justify-center gap-3">
+            <button className="p-2 hover:bg-gray-200 hover:rounded-lg">
+              <i className="fa-solid fa-heart fa-lg text-gray-600"></i>
+            </button>
+            <button className="p-2 hover:bg-gray-200 hover:rounded-lg">
+              <i className="fa-solid fa-cart-shopping fa-lg text-gray-600"></i>
+            </button>
+
+            {user ? (
+              <ProfileMenu user={user} onLogout={handleLogout} />
+            ) : (
+              <>
+                <button
+                  onClick={openSignIn}
+                  className="hover:bg-gray-100 rounded-lg p-2 px-3"
+                >
+                  Sign In
+                </button>
+
+                <button
+                  onClick={openSignUp}
+                  className="bg-blue-800 hover:bg-blue-700 text-white rounded-lg p-2 px-3"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
+
+          </div>
         </div>
 
-        {/* Search */}
-        <div className="col-span-6">
-          <SearchBar />
-        </div>
+        <AuthModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          defaultMode={mode}
+          onLogin={handleLogin}
+        />
+      </header>
 
-        {/* Right Section */}
-        <div className="col-span-3 flex items-center justify-center gap-3">
-
-          <i className="fa-solid fa-heart fa-xl text-gray-600"></i>
-          <i className="fa-solid fa-cart-shopping fa-xl text-gray-600"></i>
-
-          {user ? (
-            <ProfileMenu user={user} onLogout={handleLogout} />
-          ) : (
-            <>
-              <button
-                onClick={openSignIn}
-                className="hover:bg-gray-100 rounded-lg p-2 px-3"
-              >
-                Sign In
-              </button>
-
-              <button
-                onClick={openSignUp}
-                className="bg-blue-800 hover:bg-blue-700 text-white rounded-lg p-2 px-3"
-              >
-                Sign Up
-              </button>
-            </>
-          )}
-
-        </div>
-      </div>
-
-      <AuthModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        defaultMode={mode}
-        onLogin={handleLogin}
+      {/* Sidebar */}
+      <Sidebar
+        isOpen={sidebarOpen}
+        active={active}
+        setActive={setActive}
       />
-    </header>
+    </>
   );
 }
