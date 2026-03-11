@@ -1,18 +1,21 @@
 "use client";
 
-import { useState } from "react";
-
-export default function Sidebar() {
-  const [active, setActive] = useState("All");
+export default function Sidebar({ isOpen, active, setActive }) {
 
   const linkClass = (name) =>
     `flex items-center px-3 py-2 rounded-lg w-55 ${
-      active === name ? "bg-blue-900 text-white": "text-gray-500 hover:bg-gray-100"
+      active === name
+        ? "bg-blue-900 text-white"
+        : "text-gray-500 hover:bg-gray-100"
     }`;
 
   return (
-    <aside className="fixed top-17 left-0 z-40 w-64 h-full sm:translate-x-0" aria-label="Sidebar">
-      <div className="h-full px-4 py-6 overflow-y-auto bg-white border-r">
+    <aside
+      className={`fixed top-17 left-0 z-40 w-64 h-full bg-white border-r transform transition-transform duration-300
+      ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+      aria-label="Sidebar"
+    >
+      <div className="h-full px-4 py-6 overflow-y-auto">
 
         <h2 className="text-xl font-semibold mb-6">Categories</h2>
 
