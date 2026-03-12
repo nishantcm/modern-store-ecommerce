@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import ProfileMenu from "./ProfileMenu";
 import AuthModal from "./auth/AuthModal";
 import Sidebar from "./Sidebar";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
 
@@ -15,6 +16,8 @@ export default function Header() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false); // sidebar state
   const [active, setActive] = useState("All");
+  
+  const router = useRouter();
 
   // Load user when page loads
   useEffect(() => {
@@ -77,10 +80,14 @@ export default function Header() {
 
           {/* Right Section */}
           <div className="col-span-3 flex items-center justify-center gap-3">
-            <button className="p-2 hover:bg-gray-200 hover:rounded-lg">
+            <button 
+              onClick={() => router.push("/wishlist")}
+              className="p-2 hover:bg-gray-200 hover:rounded-lg">
               <i className="fa-solid fa-heart fa-lg text-gray-600"></i>
             </button>
-            <button className="p-2 hover:bg-gray-200 hover:rounded-lg">
+            <button 
+              onClick={() => router.push("/cart")}
+              className="p-2 hover:bg-gray-200 hover:rounded-lg">
               <i className="fa-solid fa-cart-shopping fa-lg text-gray-600"></i>
             </button>
 
