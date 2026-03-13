@@ -1,18 +1,19 @@
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
 
-    const { name, email, password } = await req.json();
-
     await connectDB();
+
+    const { name, email, password } = await req.json();
 
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return Response.json(
+      return NextResponse.json(
         { message: "User already exists" },
         { status: 400 }
       );
@@ -26,11 +27,8 @@ export async function POST(req) {
       password: hashedPassword
     });
 
-    return Response.json(
-      {
-        message: "User created successfully",
-        user
-      },
+    return NextResponse.json(
+      { message: "User created successfully", user },
       { status: 201 }
     );
 
@@ -38,7 +36,7 @@ export async function POST(req) {
 
     console.error("Signup API Error:", error);
 
-    return Response.json(
+    return NextResponse.json(
       { message: "Server error" },
       { status: 500 }
     );
