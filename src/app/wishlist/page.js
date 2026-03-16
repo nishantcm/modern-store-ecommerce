@@ -21,9 +21,9 @@ export default function WishlistPage() {
           </div>
 
           <h1 className="text-2xl font-bold pb-4">Your Wishlist is Empty</h1>
-          <p className ="font-size-12 text-center pb-10">Save items you love for later!</p>
+          <p className ="text-center pb-10">Save items you love for later!</p>
           <div className="flex items-center justify-center">
-            <button className="bg-blue-700 p-2 rounded-md hover:bg-blue-800 text-white text-sm font-bold">Start Shopping</button>
+            <button className="bg-blue-800 p-2 rounded-md hover:bg-blue-700 text-white text-sm font-bold">Start Shopping</button>
           </div>
           <div className="mt-6 space-y-4">
             {wishlist.map((item) => (
