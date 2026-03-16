@@ -28,12 +28,12 @@ export default function CartPage() {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <button className="text-blue-600 p-2 rounded-md hover:bg-blue-100 transition text-sm font-bold me-3">View All</button>
+            <button className="text-blue-600 p-2 rounded-md hover:bg-blue-100 transition text-sm font-semibold me-3">View All</button>
             <button className="bg-blue-800 p-2 rounded-md hover:bg-blue-700 text-white text-sm font-bold flex"><IoCartSharp className="text-xl me-2" /> Add All to Cart</button>
           </div>
         </div>
-        
       </div>
+      <div className="flex flex-wrap"></div>
       <div className="flex justify-center">
         <div className="p-6 ">
           
