@@ -16,7 +16,7 @@ export default function CartPage() {
         </button>
       </div>
       <h1 className="font-extrabold text-3xl pt-5">Shopping Cart</h1>
-      <div className="rounded-md px-3 py-5 border mt-3">
+      <div className="rounded-xl px-3 py-5 border border-gray-300 mt-3">
         <div className="flex justify-between">
           <div className="flex">
             <div className="flex items-center justify-center">
@@ -27,8 +27,9 @@ export default function CartPage() {
               <p className="text-sm font-light">You have 0 item saved for later</p>
             </div>
           </div>
-          <div className="">
-            <button className="bg-blue-800 p-2 rounded-md hover:bg-blue-700 text-white text-sm font-bold"><IoCartSharp /> Add All to Cart</button>
+          <div className="flex items-center justify-center">
+            <button className="text-blue-600 p-2 rounded-md hover:bg-blue-100 transition text-sm font-bold me-3">View All</button>
+            <button className="bg-blue-800 p-2 rounded-md hover:bg-blue-700 text-white text-sm font-bold flex"><IoCartSharp className="text-xl me-2" /> Add All to Cart</button>
           </div>
         </div>
         
