@@ -4,27 +4,20 @@ import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import ProfileMenu from "./ProfileMenu";
 import AuthModal from "./auth/AuthModal";
-import Sidebar from "./Sidebar";
 import { useRouter } from "next/navigation";
 
-export default function Header() {
-
+export default function Header({ sidebarOpen, setSidebarOpen }) {
   const [user, setUser] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mode, setMode] = useState("signin");
 
-  const [sidebarOpen, setSidebarOpen] = useState(false); // sidebar state
-  const [active, setActive] = useState("All");
-  
   const router = useRouter();
 
-  // Load user when page loads
   useEffect(() => {
     setMounted(true);
-    
-    const savedUser = sessionStorage.getItem("user");
 
+    const savedUser = sessionStorage.getItem("user");
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
@@ -40,14 +33,12 @@ export default function Header() {
     setIsModalOpen(true);
   };
 
-  // LOGIN
   const handleLogin = (userData) => {
     sessionStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
     setIsModalOpen(false);
   };
 
-  // LOGOUT
   const handleLogout = () => {
     sessionStorage.removeItem("user");
     setUser(null);
@@ -58,12 +49,11 @@ export default function Header() {
       <header>
         <div className="grid grid-cols-12 gap-2 bg-[#faf9fd] p-6 shadow-md outline outline-black/5 dark:bg-gray-800 py-3">
 
-          {/* Logo */}
+          {/* Logo + Toggle */}
           <div className="col-span-3 flex items-center justify-center gap-3">
-
-            {/* Toggle Sidebar */}
             <button
-              onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-200 hover:rounded-lg"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 hover:bg-gray-200 hover:rounded-lg"
             >
               <i className="fa-solid fa-bars fa-lg text-black"></i>
             </button>
@@ -80,14 +70,17 @@ export default function Header() {
 
           {/* Right Section */}
           <div className="col-span-3 flex items-center justify-center gap-3">
-            <button 
+            <button
               onClick={() => router.push("/wishlist")}
-              className="p-2 hover:bg-gray-200 hover:rounded-lg">
+              className="p-2 hover:bg-gray-200 hover:rounded-lg"
+            >
               <i className="fa-solid fa-heart fa-lg text-gray-600"></i>
             </button>
-            <button 
+
+            <button
               onClick={() => router.push("/cart")}
-              className="p-2 hover:bg-gray-200 hover:rounded-lg">
+              className="p-2 hover:bg-gray-200 hover:rounded-lg"
+            >
               <i className="fa-solid fa-cart-shopping fa-lg text-gray-600"></i>
             </button>
 
@@ -110,7 +103,6 @@ export default function Header() {
                 </button>
               </>
             )}
-
           </div>
         </div>
 
@@ -121,13 +113,6 @@ export default function Header() {
           onLogin={handleLogin}
         />
       </header>
-
-      {/* Sidebar */}
-      <Sidebar
-        isOpen={sidebarOpen}
-        active={active}
-        setActive={setActive}
-      />
     </>
   );
 }
