@@ -9,9 +9,15 @@ export default function MainLayout({ children }) {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState("signin");
 
+  const [sidebarOpen, setSidebarOpen] = useState(false); // 👈 moved here
+
+  const [active, setActive] = useState("All");
+
   return (
     <>
       <Header
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
         onOpenSignIn={() => {
           setAuthMode("signin");
           setIsAuthOpen(true);
@@ -23,9 +29,17 @@ export default function MainLayout({ children }) {
       />
 
       <div className="flex">
-        <Sidebar />
+        <Sidebar
+          isOpen={sidebarOpen}
+          active={active}
+          setActive={setActive}
+        />
 
-        <main className="flex-1 ml-64 p-6">
+        <main
+          className={`flex-1 p-6 transition-all duration-300 ${
+            sidebarOpen ? "ml-64" : "ml-0"
+          }`}
+        >
           {children}
         </main>
       </div>
