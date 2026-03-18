@@ -28,6 +28,14 @@ export default function MainLayout({ children }) {
         }}
       />
 
+      {/* ✅ ADD OVERLAY HERE */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/30 z-30 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       <div className="flex">
         <Sidebar
           isOpen={sidebarOpen}
@@ -37,7 +45,7 @@ export default function MainLayout({ children }) {
 
         <main
           className={`flex-1 p-6 transition-all duration-300 ${
-            sidebarOpen ? "ml-64" : "ml-0"
+            sidebarOpen ? "md:ml-64" : "ml-0"
           }`}
         >
           {children}
