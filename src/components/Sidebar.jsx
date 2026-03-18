@@ -11,9 +11,9 @@ export default function Sidebar({ isOpen, active, setActive }) {
 
   return (
     <aside
-      className={`fixed top-17 left-0 z-40 w-64 h-full bg-white border-r transform transition-transform duration-300
-      ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
-      aria-label="Sidebar"
+      className={`fixed top-17 left-0 z-40 w-64 h-full bg-white border-r transform transition-transform duration-300 ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
     >
       <div className="h-full px-4 py-6 overflow-y-auto">
 
