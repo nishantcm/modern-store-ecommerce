@@ -47,10 +47,10 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
   return (
     <>
       <header>
-        <div className="grid grid-cols-12 gap-2 bg-[#faf9fd] p-6 shadow-md outline outline-black/5 dark:bg-gray-800 py-3">
+        <div className="flex items-center justify-between bg-[#faf9fd] p-4 shadow-md outline outline-black/5 dark:bg-gray-800">
 
-          {/* Logo + Toggle */}
-          <div className="col-span-3 flex items-center justify-center gap-3">
+          {/* Left: Logo + Toggle */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-2 hover:bg-gray-200 hover:rounded-lg"
@@ -58,30 +58,30 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
               <i className="fa-solid fa-bars fa-lg text-black"></i>
             </button>
 
-            <h1 className="text-black text-[24px] font-medium">
+            <h1 className="text-black text-lg md:text-2xl font-medium">
               Modern Store
             </h1>
           </div>
 
-          {/* Search */}
-          <div className="col-span-6">
+          {/* Center: Search (hidden on small screens) */}
+          <div className="hidden md:block w-1/2">
             <SearchBar />
           </div>
 
           {/* Right Section */}
-          <div className="col-span-3 flex items-center justify-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <button
               onClick={() => router.push("/wishlist")}
               className="p-2 hover:bg-gray-200 hover:rounded-lg"
             >
-              <i className="fa-solid fa-heart fa-lg text-gray-600"></i>
+              <i className="fa-solid fa-heart text-gray-600"></i>
             </button>
 
             <button
               onClick={() => router.push("/cart")}
               className="p-2 hover:bg-gray-200 hover:rounded-lg"
             >
-              <i className="fa-solid fa-cart-shopping fa-lg text-gray-600"></i>
+              <i className="fa-solid fa-cart-shopping text-gray-600"></i>
             </button>
 
             {user ? (
@@ -90,14 +90,14 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
               <>
                 <button
                   onClick={openSignIn}
-                  className="hover:bg-gray-100 rounded-lg p-2 px-3"
+                  className="hidden md:block hover:bg-gray-100 rounded-lg p-2 px-3"
                 >
                   Sign In
                 </button>
 
                 <button
                   onClick={openSignUp}
-                  className="bg-blue-800 hover:bg-blue-700 text-white rounded-lg p-2 px-3"
+                  className="hidden md:block bg-blue-800 hover:bg-blue-700 text-white rounded-lg p-2 px-3"
                 >
                   Sign Up
                 </button>
