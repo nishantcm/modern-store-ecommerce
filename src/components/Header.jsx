@@ -94,7 +94,6 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
                 >
                   Sign In
                 </button>
-
                 <button
                   onClick={openSignUp}
                   className="hidden md:block bg-blue-800 hover:bg-blue-700 text-white rounded-lg p-2 px-3"
