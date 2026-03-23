@@ -46,7 +46,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <div className="flex items-center justify-between bg-[#faf9fd] p-4 shadow-md outline outline-black/5 dark:bg-gray-800">
 
           {/* Left: Logo + Toggle */}
