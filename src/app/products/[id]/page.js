@@ -29,7 +29,7 @@ export const products = [
     price: 24.99,
     rating: 4,
     reviewCount: 41,
-    inStock: false,
+    inStock: true,
     image:
       "https://images.unsplash.com/photo-1520975682031-a92e1e3c0a7f?auto=format&fit=crop&w=800&q=80",
   },
