@@ -49,7 +49,7 @@ function ProductCard({ product }) {
             src={product.image}
             alt={product.title}
             loading="lazy"
-            className="h-full w-full object-contain p-6 transition duration-300 group-hover:scale-[1.02]"
+            className="h-full w-full transition duration-300 group-hover:scale-[1.02]"
           />
         </Link>
       </div>
