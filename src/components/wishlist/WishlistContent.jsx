@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useWishlist } from "@/context/WishlistContext";
+import ProductGrid from "@/components/products/ProductGrid";
 import WishlistItem from "./WishlistItem";
 
 export default function WishlistContent() {
@@ -12,7 +13,7 @@ export default function WishlistContent() {
       <div>
         <div>
           <Link
-            href="/"
+            href="/product/all"
             className="inline-flex items-center text-blue-600 p-2 rounded-md hover:bg-blue-100 transition"
           >
             <i className="fa-solid fa-arrow-left text-blue-600 mx-2" />
@@ -31,7 +32,7 @@ export default function WishlistContent() {
             <p className="text-center pb-10">Save items you love for later!</p>
             <div className="flex items-center justify-center">
               <Link
-                href="/"
+                href="/product/all"
                 className="bg-blue-800 p-2 rounded-md hover:bg-blue-700 text-white text-sm font-bold"
               >
                 Start Shopping
@@ -47,7 +48,7 @@ export default function WishlistContent() {
     <div className="p-5">
       <div className="mb-5">
         <Link
-          href="/"
+          href="/product/all"
           className="inline-flex items-center text-blue-600 p-2 rounded-md hover:bg-blue-100 transition"
         >
           <i className="fa-solid fa-arrow-left text-blue-600 mx-2" />
@@ -59,11 +60,11 @@ export default function WishlistContent() {
         Your Wishlist ({wishlist.length} {wishlist.length === 1 ? "item" : "items"})
       </h1>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <ProductGrid>
         {wishlist.map((item) => (
           <WishlistItem key={item.id} product={item} />
         ))}
-      </div>
+      </ProductGrid>
 
       <div className="mt-10 flex justify-center">
         <button

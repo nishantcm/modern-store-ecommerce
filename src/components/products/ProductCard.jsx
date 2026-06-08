@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useWishlist } from "@/context/WishlistContext";
 import { useToast } from "@/context/ToastContext";
+import { getProductUrl } from "@/data/products";
 
 function RatingStars({ rating = 0 }) {
   const fullStars = Math.max(0, Math.min(5, Math.floor(rating)));
@@ -60,7 +61,7 @@ export default function ProductCard({ product }) {
         </button>
 
         <Link
-          href={`/products/${product.id}`}
+          href={getProductUrl(product)}
           className="block h-full w-full"
           aria-label={`View ${product.title}`}
         >
@@ -74,7 +75,7 @@ export default function ProductCard({ product }) {
       </div>
 
       <div className="p-4">
-        <Link href={`/products/${product.id}`} className="block">
+        <Link href={getProductUrl(product)} className="block">
           <h2 className="line-clamp-2 text-[15px] font-semibold text-gray-900">
             {product.title}
           </h2>

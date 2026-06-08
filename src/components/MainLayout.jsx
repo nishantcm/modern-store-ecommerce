@@ -7,18 +7,13 @@ import AuthModal from "./auth/AuthModal";
 import Toast from "./Toast";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { ToastProvider } from "@/context/ToastContext";
+import { SidebarProvider, useSidebar } from "@/context/SidebarContext";
 
-export default function MainLayout({ children }) {
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [authMode, setAuthMode] = useState("signin");
-
-  const [sidebarOpen, setSidebarOpen] = useState(false); // 👈 moved here
-
-  const [active, setActive] = useState("All");
+function LayoutContent({ children, isAuthOpen, setIsAuthOpen, authMode, setAuthMode }) {
+  const { sidebarOpen, setSidebarOpen } = useSidebar();
 
   return (
-    <ToastProvider>
-      <WishlistProvider>
+    <>
       <Header
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
@@ -32,20 +27,16 @@ export default function MainLayout({ children }) {
         }}
       />
 
-      {/* ✅ ADD OVERLAY HERE */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/30 z-30 md:hidden"
+          className="fixed inset-0 z-30 bg-black/30 md:hidden"
           onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
         />
       )}
 
       <div className="flex">
-        <Sidebar
-          isOpen={sidebarOpen}
-          active={active}
-          setActive={setActive}
-        />
+        <Sidebar />
 
         <main
           className={`flex-1 p-6 transition-all duration-300 ${
@@ -63,6 +54,27 @@ export default function MainLayout({ children }) {
       />
 
       <Toast />
+    </>
+  );
+}
+
+export default function MainLayout({ children }) {
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState("signin");
+
+  return (
+    <ToastProvider>
+      <WishlistProvider>
+        <SidebarProvider>
+          <LayoutContent
+            isAuthOpen={isAuthOpen}
+            setIsAuthOpen={setIsAuthOpen}
+            authMode={authMode}
+            setAuthMode={setAuthMode}
+          >
+            {children}
+          </LayoutContent>
+        </SidebarProvider>
       </WishlistProvider>
     </ToastProvider>
   );
