@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useWishlist } from "@/context/WishlistContext";
+import { useToast } from "@/context/ToastContext";
 
 function RatingStars({ rating = 0 }) {
   const fullStars = Math.max(0, Math.min(5, Math.floor(rating)));
@@ -30,13 +31,18 @@ function formatUSD(amount) {
   }
 }
 
-export default function WishlistItem({ product }) {
-  const { removeFromWishlist } = useWishlist();
+export default function ProductCard({ product }) {
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const { showToast } = useToast();
+  const wishlisted = isInWishlist(product.id);
 
-  const handleRemove = (e) => {
+  const handleWishlistClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    removeFromWishlist(product.id);
+    const added = toggleWishlist(product);
+    if (added) {
+      showToast("Product added to wishlist");
+    }
   };
 
   return (
@@ -44,11 +50,13 @@ export default function WishlistItem({ product }) {
       <div className="relative aspect-[4/3] w-full bg-[#f3df55]">
         <button
           type="button"
-          onClick={handleRemove}
-          aria-label="Remove from wishlist"
+          onClick={handleWishlistClick}
+          aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
           className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-xl bg-white/90 shadow-sm ring-1 ring-black/5 transition hover:bg-white"
         >
-          <i className="fa-solid fa-trash text-gray-600" />
+          <i
+            className={`${wishlisted ? "fa-solid text-red-500" : "fa-regular text-gray-600"} fa-heart`}
+          />
         </button>
 
         <Link

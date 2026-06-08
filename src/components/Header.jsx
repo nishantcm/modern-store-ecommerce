@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import ProfileMenu from "./ProfileMenu";
 import AuthModal from "./auth/AuthModal";
 import { useRouter } from "next/navigation";
+import { useWishlist } from "@/context/WishlistContext";
 
 export default function Header({ sidebarOpen, setSidebarOpen }) {
   const [user, setUser] = useState(null);
@@ -13,6 +14,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
   const [mode, setMode] = useState("signin");
 
   const router = useRouter();
+  const { wishlist } = useWishlist();
 
   useEffect(() => {
     setMounted(true);
@@ -72,9 +74,14 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
           <div className="flex items-center gap-2 md:gap-3">
             <button
               onClick={() => router.push("/wishlist")}
-              className="p-2 hover:bg-gray-200 hover:rounded-lg"
+              className="relative p-2 hover:bg-gray-200 hover:rounded-lg"
             >
               <i className="fa-solid fa-heart text-gray-600"></i>
+              {mounted && wishlist.length > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+                  {wishlist.length}
+                </span>
+              )}
             </button>
 
             <button

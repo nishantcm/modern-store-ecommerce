@@ -4,6 +4,9 @@ import { useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import AuthModal from "./auth/AuthModal";
+import Toast from "./Toast";
+import { WishlistProvider } from "@/context/WishlistContext";
+import { ToastProvider } from "@/context/ToastContext";
 
 export default function MainLayout({ children }) {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -14,7 +17,8 @@ export default function MainLayout({ children }) {
   const [active, setActive] = useState("All");
 
   return (
-    <>
+    <ToastProvider>
+      <WishlistProvider>
       <Header
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
@@ -57,6 +61,9 @@ export default function MainLayout({ children }) {
         onClose={() => setIsAuthOpen(false)}
         defaultMode={authMode}
       />
-    </>
+
+      <Toast />
+      </WishlistProvider>
+    </ToastProvider>
   );
 }
